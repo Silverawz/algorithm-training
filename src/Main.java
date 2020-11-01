@@ -11,6 +11,7 @@ public class Main {
          
         //Verify sorted array
         System.out.println(Arrays.toString(array));
+        
 	}
 
 	  @SuppressWarnings({ "rawtypes", "unchecked" })
