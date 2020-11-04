@@ -1,33 +1,35 @@
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class Main {
 
 	public static void main(String[] args) {
-        //This is unsorted array
-        Integer[] array = new Integer[] {12,13,24,10,3,6,90,70};
-         
-        //Let's sort using insertion sort
-        insertionSort(array, 0, array.length);
-         
-        //Verify sorted array
-        System.out.println(Arrays.toString(array));
-        
+		int array[] = {3,6,9,4,2,1};
+		rotate(array, 3);
+		for (int i : array) {
+			System.out.println(i);
+		}
 	}
 
-	  @SuppressWarnings({ "rawtypes", "unchecked" })
-	    public static void insertionSort(Object[] a, int fromIndex, int toIndex) 
-	    {
-	        Object d;
-	        for (int i = fromIndex + 1; i < toIndex; i++) 
-	        {
-	            d = a[i];
-	            int j = i;
-	            while (j > fromIndex && ((Comparable) a[j - 1]).compareTo(d) > 0) 
-	            {
-	                a[j] = a[j - 1];
-	                j--;
-	            }
-	            a[j] = d;
-	        }
+	public static void rotate(int[] nums, int k) {
+	    if(k > nums.length) 
+	        k=k%nums.length;
+	 
+	    int[] result = new int[nums.length];
+	 
+	    for(int i=0; i < k; i++){
+	        result[i] = nums[nums.length-k+i];
 	    }
+	 
+	    int j=0;
+	    for(int i=k; i<nums.length; i++){
+	        result[i] = nums[j];
+	        j++;
+	    }
+	 
+	    System.arraycopy( result, 0, nums, 0, nums.length );
+	}
+
 }
