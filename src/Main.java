@@ -33,12 +33,10 @@ public class Main {
      public static void main(String a[])
      {  
           int[] tab = {-4, 1, 13, 4, 16, 2, 13, 14}; 
-  
           System.out.println("**** Avant le tri par selection *****");
           displayTab(tab);
           //tri d un tableau avec l algorithme de tri par selection
           tri_selection(tab);
- 
           System.out.println("**** Apres le tri par selection ****");  
           displayTab(tab); 
      } 
