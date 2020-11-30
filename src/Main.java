@@ -7,28 +7,50 @@ public class Main {
 
 
 	public static void main(String args[]) {
-		String[]result = solution("abcdefghi");
-		for (String string : result) {
-			System.out.println(string);
-		}
+
+		System.out.println(isValid("(({{[[]]}})"));
+		//System.out.println(isValid("[(])"));
+		
 	}
 
-	 public static String[] solution(String s) {	
-		 int length = s.length();	
-		 String[] result = new String[length/2];
-		 if(length%2 != 0) {
-			 result = new String[(length/2+1)];
-		 }	
-		 int lengthResult = result.length;
-		 int k = 0;
-		 for(int i = 0; i < lengthResult; i++) {
-			 if(k+1 < length) result[i] = ""+s.charAt(k)+s.charAt(k+1)+"";
-			 else result[i] = ""+s.charAt(k)+"";
-			 k += 2;
-		 }		 
-		 if(length%2 != 0) {			 
-			 result[result.length-1] += "_";
-		 }
-		 return result;
-	 }
+	public static boolean isValid(String braces) {
+		boolean result = false;
+		int length = braces.length();	
+		while(!result) {	
+			int checkAllPairEquals = 0;	
+			if(length%2 == 0) {	
+				for(int i = 0; i < length; i++) {	
+					if(braces.charAt(i) == '(' && braces.charAt(i+1) == ')') {
+						checkAllPairEquals += 2;
+					} else if (braces.charAt(i) == '[' && braces.charAt(i+1) == ']') {
+						checkAllPairEquals += 2;
+					} else if (braces.charAt(i) == '{' && braces.charAt(i+1) == '}') {
+						checkAllPairEquals += 2;
+					}
+					i++;
+				}
+				if(checkAllPairEquals == length) {
+					return true;
+				}
+				checkAllPairEquals = 0;
+				int lengthModified = length-1;
+				for(int i = 0; i < length%2; i++) {	
+					if(braces.charAt(i) == '(' && braces.charAt(lengthModified) == ')') {
+						checkAllPairEquals += 2;
+					} else if (braces.charAt(i) == '[' && braces.charAt(lengthModified) == ']') {
+						checkAllPairEquals += 2;
+					} else if (braces.charAt(i) == '{' && braces.charAt(lengthModified) == '}') {
+						checkAllPairEquals += 2;
+					}
+					lengthModified -= 1;	
+				}
+				if(checkAllPairEquals == length) {
+					return true;
+				}
+				return false;				
+			}
+			return false;
+		}
+	    return false;
+	  }
 }
