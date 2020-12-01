@@ -8,16 +8,52 @@ import java.util.stream.Stream;
 public class Main {
 
 	public static void main(String args[]) {
+		
+		System.out.println(findNb(1L));
+		
+
 		//System.out.println(validatePin("61.2"));
+		/*
+
+		System.out.println(check("The quick brown fox jumps over the lazy dog."));
+		System.out.println(check("You shall not pass!"));
+		
+		 
 		String[] result  = wave("two words");
 		for (String string : result) {
 			System.out.println(string);
 		}
-
+*/
 		//System.out.println(isValid("([{}])"));
 		//System.out.println(isValid("({})[({})]"));
 	}
 
+	
+	
+	public static long findNb(long m) {
+		
+		
+		
+		return 1L;
+	}	
+	
+	
+	
+	
+	/*
+	public static boolean check(String sentence){
+		String allLetters = "abcdefghijklmnopqrstuvwxyz";
+		for(int i = 0; i < sentence.length();i++) {
+			for(int j=0; j < allLetters.length(); j++) {
+				if(Character.toUpperCase(sentence.charAt(i)) == Character.toUpperCase(allLetters.charAt(j))) {
+					StringBuilder sb = new StringBuilder(allLetters);
+					allLetters = sb.deleteCharAt(j).toString();
+				}
+			}	
+		}
+		if(allLetters.length() == 0)return true;
+		else return false;    
+	  }
 
 	
 	public static String[] wave(String str) {
@@ -41,7 +77,7 @@ public class Main {
         return result;
     }
     
-	/*
+	
 
 	public static boolean validatePin(String pin) {	
 		return pin.matches("\\d{4}|\\d{6}");
