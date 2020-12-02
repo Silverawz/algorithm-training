@@ -4,174 +4,83 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
-
 public class Main {
 
 	public static void main(String args[]) {
-		
-		System.out.println(findNb(1L));
-		
 
-		//System.out.println(validatePin("61.2"));
-		/*
-
-		System.out.println(check("The quick brown fox jumps over the lazy dog."));
-		System.out.println(check("You shall not pass!"));
-		
-		 
-		String[] result  = wave("two words");
-		for (String string : result) {
-			System.out.println(string);
-		}
-*/
-		//System.out.println(isValid("([{}])"));
-		//System.out.println(isValid("({})[({})]"));
+		//System.out.println(encrypt("This is a test!", 3));
+		System.out.println(decrypt("hsi  etTi sats!", 1));
 	}
 
-	
-	
-	public static long findNb(long m) {
-		
-		
-		
-		return 1L;
-	}	
-	
-	
-	
-	
-	/*
-	public static boolean check(String sentence){
-		String allLetters = "abcdefghijklmnopqrstuvwxyz";
-		for(int i = 0; i < sentence.length();i++) {
-			for(int j=0; j < allLetters.length(); j++) {
-				if(Character.toUpperCase(sentence.charAt(i)) == Character.toUpperCase(allLetters.charAt(j))) {
-					StringBuilder sb = new StringBuilder(allLetters);
-					allLetters = sb.deleteCharAt(j).toString();
+	public static String encrypt(final String text, final int n) {
+		if (n <= 0 || text == null || text.length() == 0) {
+			return text;
+		}
+		String origin = text;
+		List<Character> charArrayEncryptPart1 = new ArrayList<Character>();
+		List<Character> charArrayEncryptPart2 = new ArrayList<Character>();
+		List<Character> finalCharArray = new ArrayList<Character>();
+		char[] stringToCharArray;
+		int validationIteration = 0;
+		while (validationIteration != n) {
+			stringToCharArray = origin.toCharArray();
+			for (int i = 0; i < stringToCharArray.length; i++) {
+				if (i % 2 != 0) {
+					charArrayEncryptPart1.add(stringToCharArray[i]);
+				} else if (i % 2 == 0) {
+					charArrayEncryptPart2.add(stringToCharArray[i]);
 				}
-			}	
+			}
+			finalCharArray = charArrayEncryptPart1;
+			finalCharArray.addAll(charArrayEncryptPart2);
+			origin = finalCharArray.stream().map(e -> e.toString()).reduce((acc, e) -> acc + e).get();
+			charArrayEncryptPart1 = new ArrayList<Character>();
+			charArrayEncryptPart2 = new ArrayList<Character>();
+			validationIteration++;
 		}
-		if(allLetters.length() == 0)return true;
-		else return false;    
-	  }
+		return origin;
+	}
 
-	
-	public static String[] wave(String str) {
-		int charNumber = 0;
-		for(int i = 0; i < str.length();i++) {
-			if(!(str.charAt(i) == ' ') && !(Character.isDigit(str.charAt(i)))) {
-				charNumber++;
-			}	
+	public static String decrypt(final String encryptedText, final int n) {
+		if (n <= 0 || encryptedText == null || encryptedText.length() == 0) {
+			return encryptedText;
 		}
-		String[] result = new String[charNumber];
-		int index = 0;
-		for(int i = 0; i < str.length();i++) {
-			if(!(str.charAt(i) == ' ') && !(Character.isDigit(str.charAt(i)))) {		
-				char[] arr = str.toCharArray();
-				arr[i] = Character.toUpperCase(arr[i]);
-				String newString = new String(arr);
-				result[index] = newString;
+		String origin = encryptedText;
+		List<Character> charArrayEncryptPart1 = new ArrayList<Character>();
+		List<Character> charArrayEncryptPart2 = new ArrayList<Character>();
+		List<Character> finalCharArray = new ArrayList<Character>();
+		char[] stringToCharArray;
+		int validationIteration = 0;
+		while (validationIteration != n) {
+			stringToCharArray = origin.toCharArray();
+			int nbreOfElementPaired = stringToCharArray.length/2;
+			for (int i = 0; i < stringToCharArray.length; i++) {	
+				if(i < nbreOfElementPaired) {
+					charArrayEncryptPart1.add(stringToCharArray[i]);
+				} else {
+					charArrayEncryptPart2.add(stringToCharArray[i]);
+				}
+			}
+			int index=0;
+			for(int j=0; j < stringToCharArray.length; j++) {
+				if(j%2 == 0 && charArrayEncryptPart1.size() > index) {
+					//even
+					System.out.println("hello");
+					finalCharArray.add(charArrayEncryptPart1.get(index));
+				}
+				else if(j%2 != 0 && charArrayEncryptPart2.size() > index) {
+					//odd
+					System.out.println("bonj");
+					finalCharArray.add(charArrayEncryptPart2.get(index));
+				}
 				index++;
-			}	
-		}
-        return result;
-    }
-    
-	
-
-	public static boolean validatePin(String pin) {	
-		return pin.matches("\\d{4}|\\d{6}");
-	  }
-	  
-	  
-	  
-	  
-	public static boolean isValid(String braces) {
-		System.out.println("Input value: \"" + braces + "\"");
-		boolean result = false;
-		int length = braces.length();
-		while (!result) {
-			int checkAllPairEquals = 0;
-			if (length % 2 == 0) {
-				for (int i = 0; i < length; i++) {
-					if (braces.charAt(i) == '(' && braces.charAt(i + 1) == ')') {
-						checkAllPairEquals += 2;
-					} else if (braces.charAt(i) == '[' && braces.charAt(i + 1) == ']') {
-						checkAllPairEquals += 2;
-					} else if (braces.charAt(i) == '{' && braces.charAt(i + 1) == '}') {
-						checkAllPairEquals += 2;
-					}
-					i++;
-				}
-				if (checkAllPairEquals == length) {
-					return true;
-				}
-				checkAllPairEquals = 0;
-				int lengthModified = length - 1;
-				for (int i = 0; i < length / 2; i++) {
-					if (braces.charAt(i) == '(' && braces.charAt(lengthModified) == ')') {
-						checkAllPairEquals += 1;
-					} else if (braces.charAt(i) == '[' && braces.charAt(lengthModified) == ']') {
-						checkAllPairEquals += 1;
-					} else if (braces.charAt(i) == '{' && braces.charAt(lengthModified) == '}') {
-						checkAllPairEquals += 1;
-					}
-					lengthModified -= 1;
-				}
-				if (checkAllPairEquals == length / 2) {
-					return true;
-				}
-				
-				// "({})[({})]"
-				
-				boolean start = false;
-				int indexFirst = 0;
-				int indexLast = 0;
-				char symbol = ' ';
-				String isolateString = "";
-				while (!start) {
-					symbol = getSymbolByIndex(braces, indexFirst);
-					indexLast = indexFirst + getLastSymbol(braces, symbol, indexLast+1);
-					isolateString = isolateString(braces, indexFirst, indexLast);
-					
-				}				
 			}
-			return false;
-		}
-		return false;
-	}
-	
-	
-	
-	
-	public static String isolateString(String s, int indexFirst, int indexLast) {
-		String isolateString = "";
-		for (int i = indexFirst ; i < indexLast; i++ ) {
-			isolateString += s.charAt(i);
-		}
-		return isolateString;
-	}
-
-	
-	public static int getLastSymbol(String s, char symbol, int indexLast) {
-		A: for (int i = indexLast; i < s.length(); i++) {
-			if(symbol == '(' && s.charAt(i) == ')') {
-				break A;
-			} else if (symbol == '{' && s.charAt(i) == '}') {
-				break A;
-			} else if (symbol == '[' && s.charAt(i) == ']') {
-				break A;
-			} else {
-				indexLast++;
-			}
+			origin = finalCharArray.stream().map(e -> e.toString()).reduce((acc, e) -> acc + e).get();
+			charArrayEncryptPart1 = new ArrayList<Character>();
+			charArrayEncryptPart2 = new ArrayList<Character>();
+			validationIteration++;	
 		}	
-		return indexLast;
+		return origin;
 	}
-	
-	public static char getSymbolByIndex(String s, int index) {
-		return s.charAt(index);
-	}
-	
-*/	
-	
+
 }
