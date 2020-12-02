@@ -9,7 +9,7 @@ public class Main {
 	public static void main(String args[]) {
 
 		//System.out.println(encrypt("This is a test!", 3));
-		System.out.println(decrypt("hsi  etTi sats!", 1));
+		System.out.println(decrypt("s eT ashi tist!", 2));
 	}
 
 	public static String encrypt(final String text, final int n) {
@@ -61,23 +61,21 @@ public class Main {
 					charArrayEncryptPart2.add(stringToCharArray[i]);
 				}
 			}
-			int index=0;
+			int indexA=0; int indexB=0;			
 			for(int j=0; j < stringToCharArray.length; j++) {
-				if(j%2 == 0 && charArrayEncryptPart1.size() > index) {
-					//even
-					System.out.println("hello");
-					finalCharArray.add(charArrayEncryptPart1.get(index));
+				if(j%2 != 0 && charArrayEncryptPart1.size() > indexA) {
+					finalCharArray.add(charArrayEncryptPart1.get(indexA));
+					indexA++;
 				}
-				else if(j%2 != 0 && charArrayEncryptPart2.size() > index) {
-					//odd
-					System.out.println("bonj");
-					finalCharArray.add(charArrayEncryptPart2.get(index));
+				else if(j%2 == 0 && charArrayEncryptPart2.size() > indexB) {
+					finalCharArray.add(charArrayEncryptPart2.get(indexB));
+					indexB++;
 				}
-				index++;
 			}
 			origin = finalCharArray.stream().map(e -> e.toString()).reduce((acc, e) -> acc + e).get();
 			charArrayEncryptPart1 = new ArrayList<Character>();
 			charArrayEncryptPart2 = new ArrayList<Character>();
+			finalCharArray = new ArrayList<Character>();
 			validationIteration++;	
 		}	
 		return origin;
