@@ -8,10 +8,24 @@ public class Main {
 
 	public static void main(String args[]) {
 
+		
+		System.out.println(countBits(1234));
 		//System.out.println(encrypt("This is a test!", 3));
-		System.out.println(decrypt("s eT ashi tist!", 2));
+		//System.out.println(decrypt("s eT ashi tist!", 2));
 	}
 
+	public static int countBits(int n){
+		String binaryString = Integer.toBinaryString(n);
+		int result = 0;
+		for(int i = 0; i < binaryString.length(); i++) {
+			if(binaryString.charAt(i)=='1') {
+				result++;
+			}
+		}
+		return result;
+	}
+	
+	/*
 	public static String encrypt(final String text, final int n) {
 		if (n <= 0 || text == null || text.length() == 0) {
 			return text;
@@ -80,5 +94,5 @@ public class Main {
 		}	
 		return origin;
 	}
-
+*/
 }
