@@ -10,33 +10,39 @@ public class Main {
 
 	public static void main(String args[]) {
 
-		System.out.println(findMissingLetter(new char[] { 'a', 'b', 'c', 'd', 'f' }));
+		System.out.println(findUniq(new double[] { 74.0,
+				24.0,
+				24.0,
+				24.0,
+				24.0,
+				24.0,
+				24.0,
+				24.0}));
 		// System.out.println(countBits(1234));
 		// System.out.println(encrypt("This is a test!", 3));
 		// System.out.println(decrypt("s eT ashi tist!", 2));
 	}
 
-	public static char findMissingLetter(char[] array) {
-		String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		char result = ' ';
-		int indexFirstLetter = 0;
-		A:for(int i =0; i < alphabet.length(); i++) {
-			if(alphabet.charAt(i) == Character.toUpperCase(array[0])) {
-				indexFirstLetter = i;
+	public static double findUniq(double arr[]) {
+		double one = arr[0];
+		double two = arr[1];
+		double result = 0;
+		A: for (int i = 0; i < arr.length; i++) {
+			if (one != two) {
+				if (arr[2] == one) {
+					result = two;
+					break A;
+				} else if (arr[2] == two) {
+					result = one;
+					break A;
+				}
+			}
+			if (arr[i] != one) {
+				result = arr[i];
 				break A;
 			}
-			
 		}
-		int index= 0;
-		B:for(int i =indexFirstLetter; i < alphabet.length(); i++) {		
-			if(alphabet.charAt(i) != Character.toUpperCase(array[index])) {
-				result = alphabet.charAt(i);
-				break B;
-			}
-			index++;
-		}
-		if(alphabet.charAt(indexFirstLetter) == array[0]) return result;
-		else return Character.toLowerCase(result);
+		return result;
 	}
 
 	/*
