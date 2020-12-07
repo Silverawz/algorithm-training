@@ -9,8 +9,13 @@ import java.util.stream.Stream;
 public class Main {
 
 	public static void main(String args[]) {
-
-		System.out.println(findUniq(new double[] { 74.0,
+		System.out.println(makeReadable(0));
+		System.out.println(makeReadable(5));
+		System.out.println(makeReadable(60));
+		System.out.println(makeReadable(86399));
+		System.out.println(makeReadable(359999));
+		
+		/*System.out.println(findUniq(new double[] { 74.0,
 				24.0,
 				24.0,
 				24.0,
@@ -18,11 +23,44 @@ public class Main {
 				24.0,
 				24.0,
 				24.0}));
-		// System.out.println(countBits(1234));
-		// System.out.println(encrypt("This is a test!", 3));
-		// System.out.println(decrypt("s eT ashi tist!", 2));
+		 System.out.println(countBits(1234));
+		 System.out.println(encrypt("This is a test!", 3));
+		 System.out.println(decrypt("s eT ashi tist!", 2));*/
 	}
-
+	
+	
+	
+	public static String makeReadable(int seconds) {
+		if(seconds == 0) return "00:00:00";
+		String secAsString = "";String minAsString = "";String hourAsString = "";
+		int sec = 0; int min = 0; int hour = 0;
+		for(int i = 0; i < seconds; i++) {
+			if(sec < 60) {
+				sec++;
+			}
+			if(min < 60 && sec == 60) {
+				min++;
+				sec = 0;
+			} 
+			if(min == 60) {
+				hour++;
+				min = 0;
+			}
+		}	
+		if(hour < 10) hourAsString = "0"+hour; 
+		else hourAsString = ""+hour;
+		if(min < 10) minAsString = "0"+min;
+		else minAsString = ""+min;
+		if(sec < 10) secAsString = "0"+sec;
+		else secAsString = ""+sec;
+		String result = hourAsString+":"+minAsString+":"+secAsString;
+	    return result;
+	  }
+	
+	
+	
+	
+	/*
 	public static double findUniq(double arr[]) {
 		double one = arr[0];
 		double two = arr[1];
@@ -45,7 +83,7 @@ public class Main {
 		return result;
 	}
 
-	/*
+	
 	 * 
 	 * public static int countBits(int n){ String binaryString =
 	 * Integer.toBinaryString(n); int result = 0; for(int i = 0; i <
